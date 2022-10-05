@@ -12,7 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Run prod command
-      run: echo "Hello, world! ${{ inputs.some-value }}"
+      run: |
+       echo "Hello, world! ${{ inputs.some-value }}"
+       if [ ${{ inputs.some-value }} == "prod"]
+       then 
+          echo "this is prod call"
+       else
+          echo "this is non prod call"
+       fi
 #      env:
 #       repo-token: ${{ secrets.GITHUB_TOKEN }}
 #       configuration-path: ${{ inputs.some-value }}
