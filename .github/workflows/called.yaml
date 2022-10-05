@@ -11,6 +11,13 @@ jobs:
   scan-iac-repo:
     runs-on: ubuntu-latest
     steps:
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
+    - name: print branch name
+      run: |
+       echo "this is branch name- ${{ steps.extract_branch.outputs.branch }}"
     - name: clone repo
       uses: actions/checkout@master
     - name: run tfsec
