@@ -22,11 +22,13 @@ jobs:
       uses: actions/checkout@master
     - name: run tfsec
       #if: ${{ inputs.some-value == 'prod' }}
-      if: ${{ steps.extract_branch.outputs.branch == 'prod' || steps.extract_branch.outputs.branch == 'main' || steps.extract_branch.outputs.branch == 'master' }}
+      #if: ${{ steps.extract_branch.outputs.branch == 'prod' || steps.extract_branch.outputs.branch == 'main' || steps.extract_branch.outputs.branch == 'master' }}
+      if: ${{ steps.extract_branch.outputs.branch == 'main' }}
       uses: aquasecurity/tfsec-action@v1.0.0
     - name: run command
       #if: ${{ inputs.some-value != 'prod' }}
-      if: ${{ steps.extract_branch.outputs.branch != 'prod' || steps.extract_branch.outputs.branch != 'main' || steps.extract_branch.outputs.branch != 'master' }}
+      #if: ${{ steps.extract_branch.outputs.branch != 'main' || steps.extract_branch.outputs.branch != 'main' || steps.extract_branch.outputs.branch != 'master' }}
+      if: ${{ steps.extract_branch.outputs.branch != 'main' }}
       run: |
        echo "this is else command"
 #     run: |
