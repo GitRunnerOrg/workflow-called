@@ -14,7 +14,7 @@ jobs:
     - name: Run prod command
       run: |
        echo "Hello, world! ${{ inputs.some-value }}"
-       if [ "${{ inputs.some-value }}" == "prod"]
+       if [ ${{ inputs.some-value }} == "prod" ]
        then 
           echo "this is prod call"
        else
