@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Run prod command
-      run: echo "Hello, world! ${{ github.event.inputs.some-value }}"
+      run: echo "Hello, world! ${{ inputs.some-value }}"
 #      env:
 #       repo-token: ${{ secrets.GITHUB_TOKEN }}
 #       configuration-path: ${{ inputs.some-value }}
