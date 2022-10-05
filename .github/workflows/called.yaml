@@ -36,6 +36,7 @@ jobs:
         echo "this is prod call"
         else
          echo "this is non prod call"
+        fi
 #     run: |
 #     echo "Hello, world! ${{ inputs.some-value }}"
 #       if [ ${{ inputs.some-value }} == "prod" ]
