@@ -28,14 +28,14 @@ jobs:
     - name: run command
       #if: ${{ inputs.some-value != 'prod' }}
       #if: ${{ steps.extract_branch.outputs.branch != 'main' || steps.extract_branch.outputs.branch != 'main' || steps.extract_branch.outputs.branch != 'master' }}
-      if: ${{ steps.extract_branch.outputs.branch != 'main' }}
+      if: ${{ steps.extract_branch.outputs.branch != 'main' }} 
       run: |
        echo "this is else command"
         if [ ${{ steps.extract_branch.outputs.branch }} == "main" ]
         then 
-        echo "this is prod call"
+        echo "this is ${{ steps.extract_branch.outputs.branch }} call"
         else
-         echo "this is non prod call"
+         echo "this is ${{ steps.extract_branch.outputs.branch }} call"
         fi
 #     run: |
 #     echo "Hello, world! ${{ inputs.some-value }}"
