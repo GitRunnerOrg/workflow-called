@@ -17,6 +17,7 @@ jobs:
       if: ${{ inputs.some-value == 'prod' }}
       uses: aquasecurity/tfsec-action@v1.0.0
     - name: run command
+      if: ${{ inputs.some-value != 'prod' }}
       run: |
        echo "this is else command"
 #     run: |
