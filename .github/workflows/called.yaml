@@ -22,13 +22,16 @@ jobs:
         then 
         echo "this is ${{ steps.extract_branch_for_runner.outputs.branch }} call"
         echo "RUNNER_TYPE=[self-hosted,dev]" >> $GITHUB_ENV
+        echo "::set-output name=runner::[self-hosted,dev]"
         else
          echo "this is ${{ steps.extract_branch_for_runner.outputs.branch }} call"
          echo "RUNNER_TYPE=[ubuntu-latest]" >> $GITHUB_ENV
+         echo "::set-output name=runner::[ubuntu-latest]"
         fi
         echo "$GITHUB_ENV"
   scan-iac-repo:
-    runs-on: ubuntu-latest
+    needs: [identify-runner-name]
+    runs-on: ${{ needs.identify-runner-name.outputs.runner }}
     steps:
     - name: Extract branch name
       shell: bash
