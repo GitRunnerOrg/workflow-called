@@ -24,7 +24,7 @@ jobs:
         fi
         echo "${{ env.RUNNER_TYPE }}"
   scan-iac-repo:
-    runs-on: ${{ env.RUNNER_TYPE }}
+    runs-on: ubuntu-latest
     steps:
     - name: Extract branch name
       shell: bash
