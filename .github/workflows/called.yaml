@@ -11,15 +11,19 @@ jobs:
   identify-runner-name:
     runs-on: ubuntu-latest
     steps:
+    - name: Extract branch name for runner
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch_for_runner
     - name: identify runner name
       run: |
-       echo "this is branch name- ${{ steps.extract_branch.outputs.branch }}"
-       if [ ${{ steps.extract_branch.outputs.branch }} == "main" ]
+       echo "this is branch name- ${{ steps.extract_branch_for_runner.outputs.branch }}"
+       if [ ${{ steps.extract_branch_for_runner.outputs.branch }} == "main" ]
         then 
-        echo "this is ${{ steps.extract_branch.outputs.branch }} call"
+        echo "this is ${{ steps.extract_branch_for_runner.outputs.branch }} call"
         echo "RUNNER_TYPE=[self-hosted,dev]" >> $GITHUB_ENV
         else
-         echo "this is ${{ steps.extract_branch.outputs.branch }} call"
+         echo "this is ${{ steps.extract_branch_for_runner.outputs.branch }} call"
          echo "RUNNER_TYPE=[ubuntu-latest]" >> $GITHUB_ENV
         fi
         echo "${{ env.RUNNER_TYPE }}"
