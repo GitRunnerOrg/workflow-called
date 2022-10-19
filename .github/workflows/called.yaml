@@ -10,12 +10,15 @@ on:
 jobs:
   identify-runner-name:
     runs-on: ubuntu-latest
+    outputs:
+      runner: ${{ steps.runner_name.outputs.runner }}
     steps:
     - name: Extract branch name for runner
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch_for_runner
     - name: identify runner name
+      id: runner_name
       run: |
        echo "this is branch name- ${{ steps.extract_branch_for_runner.outputs.branch }}"
        if [ ${{ steps.extract_branch_for_runner.outputs.branch }} == "main" ]
@@ -28,10 +31,10 @@ jobs:
          echo "RUNNER_TYPE=[ubuntu-latest]" >> $GITHUB_ENV
          echo "::set-output name=runner::[ubuntu-latest]"
         fi
-        echo "$GITHUB_ENV"
+        echo "${{ steps.runner_name.outputs.runner }}"
   scan-iac-repo:
     needs: [identify-runner-name]
-    runs-on: ${{ needs.identify-runner-name.outputs.runner }}
+    runs-on: ${{ needs.identify-runner-name.outputs.runner }} #${{ needs.build.outputs.runner }}
     steps:
     - name: Extract branch name
       shell: bash
