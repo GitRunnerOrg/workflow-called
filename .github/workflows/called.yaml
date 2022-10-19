@@ -26,7 +26,7 @@ jobs:
          echo "this is ${{ steps.extract_branch_for_runner.outputs.branch }} call"
          echo "RUNNER_TYPE=[ubuntu-latest]" >> $GITHUB_ENV
         fi
-        echo "${{ env.RUNNER_TYPE }}"
+        echo "$GITHUB_ENV"
   scan-iac-repo:
     runs-on: ubuntu-latest
     steps:
