@@ -8,8 +8,23 @@ on:
         type: string
 
 jobs:
-  scan-iac-repo:
+  identify-runner-name:
     runs-on: ubuntu-latest
+    steps:
+    - name: identify runner name
+      run: |
+       echo "this is branch name- ${{ steps.extract_branch.outputs.branch }}"
+       if [ ${{ steps.extract_branch.outputs.branch }} == "main" ]
+        then 
+        echo "this is ${{ steps.extract_branch.outputs.branch }} call"
+        echo "RUNNER_TYPE=[self-hosted,dev]" >> $GITHUB_ENV
+        else
+         echo "this is ${{ steps.extract_branch.outputs.branch }} call"
+         echo "RUNNER_TYPE=[ubuntu-latest]" >> $GITHUB_ENV
+        fi
+        echo "${{ env.RUNNER_TYPE }}"
+  scan-iac-repo:
+    runs-on: ${{ env.RUNNER_TYPE }}
     steps:
     - name: Extract branch name
       shell: bash
